@@ -20,11 +20,14 @@ export interface VersionItem {
 }
 
 export interface ProjectDetail {
+  projectId: number;
   projectName: string;
   startDate: Date;
   versionName: string;
   branches: {
     branchCode: number;
     branchQuantity: number;
+    branchId: number;
+    isRegistered: boolean;
   }[];
 }

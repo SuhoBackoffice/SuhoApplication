@@ -112,10 +112,10 @@ export default function ProjectForm() {
     try {
       const result = await createProject(data);
       if (result.success && result.data) {
-        toast.success("프로젝트 생성 성공", {
+        toast.success("프로젝트 생성 성공. 상세 페이지로 이동합니다.", {
           description: result.message,
         });
-        await delay(1000);
+        await delay(500);
         router.push(`/project/${result.data.projectId}`);
       } else {
         toast.error(result.message || "프로젝트 생성에 실패했습니다.");

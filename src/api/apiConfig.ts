@@ -5,8 +5,11 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const API_ENDPOINTS = {
   project: `${API_URL}/project`,
   projectVersion: `${API_URL}/project/version`,
-  // products: `${API_URL}/product`,
-  // users: `${API_URL}/user`,
+
+  branch: (projectId: number, branchCode: number) =>
+    `${API_URL}/branch/${projectId}/${branchCode}`,
+
+  getBranchBom: (projectId: number) => `${API_URL}/branch/${projectId}`,
 };
 
 // API 응답 관련 타입 정의
