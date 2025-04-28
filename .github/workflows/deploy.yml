@@ -28,6 +28,8 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/suho-app:latest
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}  # <-- 추가된 부분
 
       - name: SSH into EC2 and Deploy
         uses: appleboy/ssh-action@v0.1.6
@@ -40,12 +42,8 @@ jobs:
             docker stop suho-app || true
             docker rm suho-app || true
 
-            # .env 파일 생성
-            echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" > /home/ubuntu/suho-app.env
-
             docker run -d --name suho-app \
               --restart always \
-              --env-file /home/ubuntu/suho-app.env \
               --network suho-network \
               -p 3000:3000 \
               ${{ secrets.DOCKERHUB_USERNAME }}/suho-app:latest
